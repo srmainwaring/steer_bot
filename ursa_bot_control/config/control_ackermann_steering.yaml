@@ -1,43 +1,32 @@
-# Configuration for the ackermann drive controller
+# Configuration for the ackermann steering controller
 # 
-ackermann_drive_controller:
-    type: 'ackermann_drive_controller/AckermannDriveController'
+ackermann_steering_controller:
+    type: 'ackermann_steering_controller/AckermannSteeringController'
 
     # Odometry related 
-    publish_rate: 50
+    publish_rate: 50                    # default: 1.0
     open_loop: false
 
-    # Wheel joints
-    front_left_wheel: 'front_left_wheel_joint'
-    front_right_wheel: 'front_right_wheel_joint'
-    mid_left_wheel: 'mid_left_wheel_joint'
-    mid_right_wheel: 'mid_right_wheel_joint'
-    back_left_wheel: 'back_left_wheel_joint'
-    back_right_wheel: 'back_right_wheel_joint'
-
-    # Steering joints
-    front_left_steer: 'front_left_corner_joint'
-    front_right_steer: 'front_right_corner_joint'
-    back_left_steer: 'back_left_corner_joint'
-    back_right_steer: 'back_right_corner_joint'
+    # Joints
+    rear_wheel: 'rear_wheel_joint'
+    front_steer: 'front_steer_joint'
 
     # Geometry
+    wheel_separation_h: 0.25
     wheel_radius: 0.060
-    mid_wheel_lat_separation: 0.52
-    front_wheel_lat_separation: 0.47 
-    front_wheel_lon_separation: 0.28
-    back_wheel_lat_separation: 0.47
-    back_wheel_lon_separation: 0.25
 
-    # @TOOD: re-enable 
-    # wheel_radius_multiplier: 1.0        # default: 1.0
-    # wheel_separation_multiplier: 1.0    # default 1.0
+    # Odometry calibration and tuning
+    wheel_separation_h_multiplier: 1.0  # default: 1.0
+    wheel_radius_multiplier: 1.0        # default: 1.0
+    steer_pos_multiplier: 1.0           # default: 1.0
 
     # Odometry covariances for the encoder output of the robot. These values should
     # be tuned to your robot's sample odometry data, but these values are a good place
     # to start
-    pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
-    twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+    # pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+    # twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+    pose_covariance_diagonal : [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
+    twist_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
 
     # Top level frame (link) of the robot description
     base_frame_id: 'base_link'
