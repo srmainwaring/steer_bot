@@ -1,0 +1,21 @@
+<!-- Controllers launch file
+
+    Load parameters, launch controllers and a robot state publisher.
+    Primarily for controllers using ros_control and related frameworks.
+ -->
+<launch>
+    <!-- Load robot description -->
+    <include file="$(find acky_bot_description)/launch/description.launch" >
+    </include>
+
+    <!-- Load controller parameters -->
+    <rosparam command="load" file="$(find acky_bot_control)/config/control_ackermann_drive.yaml" />
+    <rosparam command="load" file="$(find acky_bot_control)/config/control_joint_state.yaml" />
+
+    <!-- Spawn the controllers -->
+    <node pkg="controller_manager" type="spawner" name="base_controller_spawner"
+        args="joint_state_publisher ackermann_steering_controller" />
+   
+    <!-- Launch the robot state publisher -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+</launch>
