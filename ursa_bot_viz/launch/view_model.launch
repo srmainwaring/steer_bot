@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- Display the robot model in rviz.
+-->
+<launch>
+    <arg name="model" default="$(find curio_description)/urdf/curio.urdf.xacro" />
+    <arg name="use_gui" default="true" />
+    <arg name="rvizconfig" default="$(find curio_viz)/rviz/model.rviz" />
+
+    <!-- Load the robot description -->
+    <include file="$(find curio_description)/launch/description.launch">
+        <arg name="model" value="$(arg model)" />
+    </include>
+
+    <!-- Publish joint states -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="use_gui" value="$(arg use_gui)" />
+    </node>
+
+    <!-- Publish robot state -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <!-- Open rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" />
+
+</launch>

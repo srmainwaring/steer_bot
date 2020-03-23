@@ -1,0 +1,7 @@
+<!-- Load the robot description to the ROS parameter server.
+-->
+<launch>
+    <arg name="model" default="$(find curio_description)/urdf/curio.urdf.xacro"/>
+
+    <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+</launch>
