@@ -33,25 +33,25 @@
     <xacro:property name="degrees_180" value="3.14159265"/>
 
     <!-- Basic Geometry of Body -->
-    <xacro:property name="body_length" value="1.91" />
-    <xacro:property name="body_width" value="0.680618" />
-    <xacro:property name="body_height" value="1.065022" />
-    <xacro:property name="body_mass" value="20"/>
+    <xacro:property name="body_length" value="2.0" />
+    <xacro:property name="body_width" value="0.7" />
+    <xacro:property name="body_height" value="1.0" />
+    <xacro:property name="body_mass" value="10"/>
 
     <!-- Front Steer (Motor) Properties -->
     <xacro:property name="front_steer_width" value="0.4" />
     <xacro:property name="front_steer_diameter" value="0.3" />
-    <xacro:property name="front_steer_mass" value="10"/>
+    <xacro:property name="front_steer_mass" value="2"/>
 
     <!-- Front Wheel Properties -->
     <xacro:property name="front_wheel_width" value="0.4" />
     <xacro:property name="front_wheel_diameter" value="0.6" />
-    <xacro:property name="front_wheel_mass" value="20"/>
+    <xacro:property name="front_wheel_mass" value="5"/>
 
     <!-- Rear Wheel Properties -->
     <xacro:property name="rear_wheel_width" value="0.4" />
     <xacro:property name="rear_wheel_diameter" value="0.6" />
-    <xacro:property name="rear_wheel_mass" value="20"/>
+    <xacro:property name="rear_wheel_mass" value="5"/>
 
     <!-- Base Link -->
     <link name="base_link">

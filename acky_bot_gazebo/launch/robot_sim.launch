@@ -14,7 +14,7 @@
 
     <group ns="$(arg namespace)">
 
-        <!-- Load gazebo_ros_control controller configurations -->
+        <!-- Load gazebo_ros_control controller configurations (PIDs) -->
         <!-- <rosparam file="$(find acky_bot_control)/config/gazebo_controller.yaml" command="load" ns="$(arg namespace)" /> -->
 
         <!-- Gazebo  -->
