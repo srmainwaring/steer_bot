@@ -1,0 +1,12 @@
+# Note: You MUST load these PID parameters for all joints that are using
+# the PositionJointInterface.
+# See https://github.com/ros-simulation/gazebo_ros_pkgs/issues/612
+gazebo_ros_control:
+    pid_gains:
+        front_steer_joint:
+            p: 20.0
+            i: 0.1
+            d: 0.0
+            i_clamp: 0.2
+            antiwindup: false
+            publish_state: true        

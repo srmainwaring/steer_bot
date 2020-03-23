@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="bicycle">
     <!-- Xacro includes -->
-    <xacro:include filename="$(find ursa_bot_description)/urdf/materials.xacro"/>
-    <xacro:include filename="$(find ursa_bot_description)/urdf/inertials.xacro"/>
+    <xacro:include filename="$(find acky_bot_description)/urdf/materials.xacro"/>
+    <xacro:include filename="$(find acky_bot_description)/urdf/inertials.xacro"/>
 
-    <xacro:property name="robot_namespace" value="/ursa_bot"/>
+    <xacro:property name="robot_namespace" value="/acky_bot"/>
 
     <!-- Gazebo plugins -->
     <gazebo>

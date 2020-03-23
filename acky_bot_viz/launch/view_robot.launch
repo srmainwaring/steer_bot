@@ -7,7 +7,7 @@
         rvizconfig  the rviz configuration file
 -->
 <launch>
-    <arg name="rvizconfig" default="$(find ursa_bot_viz)/rviz/robot.rviz" />
+    <arg name="rvizconfig" default="$(find acky_bot_viz)/rviz/robot.rviz" />
 
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" output="screen"/>
 </launch>

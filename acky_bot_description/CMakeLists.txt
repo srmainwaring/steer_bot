@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(ursa_bot_description)
+project(acky_bot_description)
 
 find_package(catkin REQUIRED COMPONENTS
     urdf

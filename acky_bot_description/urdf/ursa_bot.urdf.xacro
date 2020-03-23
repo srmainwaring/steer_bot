@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ursa_bot">
-    <xacro:include filename="$(find ursa_bot_description)/urdf/inertials.xacro"/>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="acky_bot">
+    <xacro:include filename="$(find acky_bot_description)/urdf/inertials.xacro"/>
 
     <!-- Degree-to-radian conversions -->
     <xacro:property name="degrees_45" value="0.785398163"/>

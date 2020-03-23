@@ -1,7 +1,7 @@
-# Ursa Bot
+# Acky Bot
 
-ROS packages demonstating an Ackermann steering vehicle.
-
+Simulate a simple Ackermann steering vehicle in Gazebo
+using `ros_control` and the `ackerman_steering_controller`.
 
 ## Gazebo Simulation
 
