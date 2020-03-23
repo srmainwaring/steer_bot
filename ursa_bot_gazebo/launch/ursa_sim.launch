@@ -17,28 +17,30 @@
             <arg name="world_name" default="$(arg world_name)"/>
         </include>
 
-
-
-        <rosparam file="$(find ursa_bot_ctrl)/config/joint_states.yaml" command="load" ns="/ursa_bot" />
-        <rosparam file="$(find ursa_bot_ctrl)/config/mobile_base.yaml" command="load" ns="/ursa_bot" />
-        <rosparam file="$(find ursa_bot_ctrl)/config/ursa_bot_gazebo.yaml" command="load" ns="/ursa_bot" />
-        <rosparam file="$(find ursa_bot_ctrl)/config/pids.yaml" command="load" ns="/ursa_bot" />
-
+        <!-- <rosparam file="$(find ursa_bot_control)/config/joint_states.yaml" command="load" ns="/ursa_bot" /> -->
+        <!-- <rosparam file="$(find ursa_bot_control)/config/mobile_base.yaml" command="load" ns="/ursa_bot" /> -->
+        <!-- <rosparam file="$(find ursa_bot_control)/config/ursa_bot_gazebo.yaml" command="load" ns="/ursa_bot" /> -->
+        <!-- <rosparam file="$(find ursa_bot_control)/config/pids.yaml" command="load" ns="/ursa_bot" /> -->
 
         <!-- Loading the Ursa Bot into Gazebo -->
-        <param name="robot_description" command="$(find xacro)/xacro $(find ursa_bot_description)/urdf/ursa_bot_basic.urdf.xacro"/>
-        <node name="spawn_vehicle" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model ursa_bot
+        <param name="robot_description" command="$(find xacro)/xacro $(find ursa_bot_description)/urdf/ursa_bot.urdf.xacro"/>
+
+        <node name="spawn_vehicle" pkg="gazebo_ros" type="spawn_model"
+            args="-urdf -param robot_description -model ursa_bot
                 -gazebo_namespace /$(arg namespace)/gazebo
                 -x $(arg x) -y $(arg y) -z $(arg z)
                 -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)"/>
 
-        <!-- Standard Publisher Bullshit here -->
+        <!-- Standard Publisher here -->
         <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
         <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
             <param name="publish_frequency" value="30.0"/>
         </node>
 
-        <node pkg="controller_manager" type="spawner" name="controller_spawner" ns="/ursa_bot" args="joint_state_controller ackermann_steering_bot_controller ackermann_steering_bot_hw_sim" output="screen" respawn="false" />
+        <node pkg="controller_manager" type="spawner" name="controller_spawner" ns="/ursa_bot"
+            args="joint_state_controller ackermann_steering_bot_controller ackermann_steering_bot_hw_sim"
+            output="screen" respawn="false" />
 
     </group>
 
