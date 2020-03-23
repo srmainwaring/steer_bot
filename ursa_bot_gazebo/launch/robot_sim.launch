@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="namespace" default="/ursa_bot" />
+    <arg name="world_name" default="worlds/empty_world" />
+    <arg name="cmd_timeout" default="0.5"/>
+    <arg name="x" default="0.0"/>
+    <arg name="y" default="0.0"/>
+    <arg name="z" default="1.0" />
+    <arg name="roll" default="0.0"/>
+    <arg name="pitch" default="0.0"/>
+    <arg name="yaw" default="0.0"/>
+    <arg name="model" default="$(find ursa_bot_description)/urdf/ursa_bot.urdf.xacro"/>
+
+    <group ns="$(arg namespace)">
+
+        <!-- Load gazebo_ros_control controller configurations -->
+        <rosparam file="$(find ursa_bot_control)/config/gazebo_controller.yaml" command="load" ns="$(arg namespace)" />
+
+        <!-- Gazebo  -->
+        <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <arg name="world_name" default="$(arg world_name)"/>
+        </include>
+
+        <!-- Load the robot description -->
+        <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
+
+        <!-- Load ros_control controller configuration parameters -->
+        <rosparam file="$(find ursa_bot_control)/config/control_ackermann_steering.yaml" command="load" ns="$(arg namespace)" />
+        <rosparam file="$(find ursa_bot_control)/config/control_joint_state.yaml" command="load" ns="$(arg namespace)" />
+
+        <!-- Spawn the controllers -->
+        <node pkg="controller_manager" type="spawner" name="controller_spawner" ns="$(arg namespace)"
+            args="joint_state_publisher ackermann_steering_controller"
+            output="screen" respawn="false" />
+
+        <!-- Launch  the robot state publisher -->
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+            <param name="publish_frequency" value="50.0"/>
+        </node>
+
+        <!-- Launch a rqt steering GUI for publishing to /ursa_bot/ackermann_steering_controller/cmd_vel -->
+        <node pkg="rqt_robot_steering" type="rqt_robot_steering" name="rqt_robot_steering" >
+            <param name="default_topic" value="/ursa_bot/ackermann_steering_controller/cmd_vel"/>
+        </node>
+
+        <!-- Spawn robot in Gazebo -->
+        <node name="spawn_vehicle" pkg="gazebo_ros" type="spawn_model"
+            args="-urdf -param robot_description -model ursa_bot
+                -gazebo_namespace /$(arg namespace)/gazebo
+                -x $(arg x) -y $(arg y) -z $(arg z)
+                -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)"
+            respawn="false" output="screen" />
+
+    </group>
+
+</launch>

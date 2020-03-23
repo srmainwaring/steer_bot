@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ursa_bot">
+    <xacro:include filename="$(find ursa_bot_description)/urdf/inertials.xacro"/>
 
     <!-- Degree-to-radian conversions -->
     <xacro:property name="degrees_45" value="0.785398163"/>
@@ -49,7 +50,10 @@
                 <box size="${body_length} ${body_width} ${body_height}"/>
             </geometry>
         </collision>
-        <xacro:default_inertial mass="${body_mass}"/>
+        <xacro:solid_cuboid_inertial 
+            rpy="0 0 0" xyz="0 0 0"
+            mass="${body_mass}"
+            x="${body_length}" y="${body_width}" z="${body_height}" />
     </link>
 
     <!-- Steering Macro -->
@@ -74,13 +78,17 @@
         <joint name="${prefix}_steering_joint" type="revolute">
             <parent link="base_link"/>
             <child link="${prefix}_steering_link"/>
-            <axis xyz="0.0 0.0 0.1"/>
-            <origin xyz="${(body_length / 2)- 0.1} ${(body_width / 2 + steering_width / 2) * reflect} ${-(body_height/2) + 0.1}" rpy="0.0 0.0 0.0"/>
+            <axis xyz="0 0 1"/>
+            <origin xyz="
+                ${(body_length / 2)- 0.1}
+                ${(body_width / 2 + steering_width / 2) * reflect}
+                ${-(body_height/2) + 0.1}"
+                rpy="0 0 0"/>
             <limit lower="-0.30" upper="0.30" effort="100.00" velocity="100.00"/>
         </joint>
 
         <!-- The Transmission -->
-        <transmission name="${prefix}_steering_link_trans">
+        <!-- <transmission name="${prefix}_steering_link_trans">
             <type>transmission_interface/SimpleTransmission</type>
             <joint name="${prefix}_steering_joint">
                 <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
@@ -89,7 +97,7 @@
                 <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
                 <mechanicalReduction>1</mechanicalReduction>
             </actuator>
-        </transmission>
+        </transmission> -->
 
     </xacro:macro>
 
@@ -98,29 +106,52 @@
 
         <link name="${prefix}_front_wheel">
             <visual>
-                <origin xyz="0.0 0.0 0.0" rpy="${degrees_90} 0.0 0.0"/>
+                <origin xyz="0 0 0" rpy="${degrees_90} 0 0"/>
                 <geometry>
                     <cylinder radius="${front_wheel_diameter/2}" length="${front_wheel_width}"/>
                 </geometry>
             </visual>
             <collision>
-                <origin xyz="0.0 0.0 0.0" rpy="${degrees_90} 0.0 0.0"/>
+                <origin xyz="0 0 0" rpy="${degrees_90} 0 0"/>
                 <geometry>
                     <cylinder radius="${front_wheel_diameter/2}" length="${front_wheel_width}"/>
                 </geometry>
             </collision>
-            <xacro:default_inertial mass="${front_wheel_mass}"/>
+            <xacro:solid_cylinder_inertial
+                rpy="${degrees_90} 0 0" xyz="0 0 0"
+                mass="${front_wheel_mass}"
+                radius="${front_wheel_diameter/2}" length="${front_wheel_width}" />
         </link>
 
+        <gazebo reference="${prefix}_front_wheel">
+            <!-- <mu1 value="0.0"/> -->
+            <!-- <mu2 value="0.0"/> -->
+            <!-- <kp value="10000000.0" /> -->
+            <!-- <kd value="1.0" /> -->
+            <material>Gazebo/Blue</material>            
+        </gazebo>
+
+        <!-- Temporarily join directly to the base_link -->
         <joint name="${prefix}_front_axle" type="continuous">
-            <parent link="${prefix}_steering_link"/>
+            <parent link="base_link"/>
             <child link="${prefix}_front_wheel"/>
-            <axis xyz="0.0 0.1 0.0"/>
-            <origin xyz="0 ${(front_wheel_width/2 + steering_width/2) * reflect} 0"/>
+            <axis xyz="0 1 0"/>
+            <origin xyz="
+                ${body_length / 2 - 0.1}
+                ${(body_width / 2 + steering_width / 2) * reflect + (front_wheel_width/2 + steering_width/2) * reflect}
+                ${-(body_height/2) + 0.1}"
+                rpy="0 0 0"/>
         </joint>
 
+        <!-- <joint name="${prefix}_front_axle" type="continuous">
+            <parent link="${prefix}_steering_link"/>
+            <child link="${prefix}_front_wheel"/>
+            <axis xyz="0 1 0"/>
+            <origin xyz="0 ${(front_wheel_width/2 + steering_width/2) * reflect} 0"/>
+        </joint> -->
+
         <!-- The Transmission -->
-        <transmission name="${prefix}_front_wheel_trans">
+        <!-- <transmission name="${prefix}_front_wheel_trans">
             <type>transmission_interface/SimpleTransmission</type>
             <joint name="${prefix}_front_axle">
                 <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
@@ -129,7 +160,16 @@
                 <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
                 <mechanicalReduction>1</mechanicalReduction>
             </actuator>
-        </transmission>
+        </transmission> -->
+
+        <gazebo>
+            <plugin name="${prefix}_mimic_joint_plugin" filename="libroboticsgroup_gazebo_mimic_joint_plugin.so">
+                <joint>rear_wheel_joint</joint>
+                <mimicJoint>${prefix}_front_axle</mimicJoint>
+                <multiplier>1</multiplier>
+                <offset>0</offset>
+            </plugin>            
+        </gazebo>
 
     </xacro:macro>
 
@@ -149,18 +189,37 @@
                     <cylinder radius="${rear_wheel_diameter/2}" length="${rear_wheel_width}"/>
                 </geometry>
             </collision>
-            <xacro:default_inertial mass="${rear_wheel_mass}"/>
+            <xacro:solid_cylinder_inertial
+                rpy="${degrees_90} 0 0" xyz="0 0 0"
+                mass="${rear_wheel_mass}"
+                radius="${rear_wheel_diameter/2}" length="${rear_wheel_width}" />
         </link>
+
+        <gazebo reference="${prefix}_rear_wheel">
+            <!-- <mu1 value="200.0"/> -->
+            <!-- <mu2 value="100.0"/> -->
+            <!-- <kp value="10000000.0" /> -->
+            <!-- <kd value="1.0" /> -->
+            <material>Gazebo/Black</material>            
+        </gazebo>
 
         <joint name="${prefix}_rear_axle" type="continuous">
             <parent link="base_link"/>
             <child link="${prefix}_rear_wheel"/>
-            <axis xyz="0.0 0.1 0.0"/>
-            <origin xyz="${-(body_length/2) + 0.1} ${(rear_wheel_width/2 + body_width/2) * reflect} ${-(body_height/2) + 0.1}"/>
+            <axis xyz="0 1 0"/>
+            <origin xyz="
+                ${-(body_length/2) + 0.1}
+                ${(rear_wheel_width/2 + body_width/2) * reflect}
+                ${-(body_height/2) + 0.1}"
+                rpy="0 0 0" />
+            <mimic joint="rear_wheel_joint">
+                <multiplier>1</multiplier>
+                <offset>0</offset>
+            </mimic>
         </joint>
 
         <!-- The Transmission -->
-        <transmission name="${prefix}_rear_wheel_trans">
+        <!-- <transmission name="${prefix}_rear_wheel_trans">
             <type>transmission_interface/SimpleTransmission</type>
             <joint name="${prefix}_rear_axle">
                 <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
@@ -169,18 +228,39 @@
                 <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
                 <mechanicalReduction>1</mechanicalReduction>
             </actuator>
-        </transmission>
+        </transmission> -->
+
+        <!-- Mimic joint plugin -->
+        <gazebo>
+            <plugin name="${prefix}_mimic_joint_plugin" filename="libroboticsgroup_gazebo_mimic_joint_plugin.so">
+                <joint>rear_wheel_joint</joint>
+                <mimicJoint>${prefix}_rear_axle</mimicJoint>
+                <!-- if set to true, PID parameters from "/gazebo_ros_control/pid_gains/${mimic_joint}" are loaded -->
+                <!-- <xacro:if value="${has_pid}"> -->
+                <!-- <hasPID /> -->
+                <!-- </xacro:if> -->
+                <multiplier>1</multiplier>
+                <offset>0</offset>
+                <!-- if absolute difference between setpoint and process value is below this threshold, do nothing; 0.0 = disable [rad] -->
+                <!-- <sensitiveness>${sensitiveness}</sensitiveness> -->
+                <!-- only taken into account if has_pid:=true [Nm] -->
+                <!-- <maxEffort>${max_effort}</maxEffort> -->
+                <!-- <xacro:unless value="${robot_namespace == ''}">
+                </xacro:unless>
+                <robotNamespace>($robot_namespace)</robotNamespace> -->
+            </plugin>            
+        </gazebo>
 
     </xacro:macro>
 
-    <xacro:steering_link prefix="left" reflect="1" />
-    <xacro:steering_link prefix="right" reflect="-1" />
+    <!-- <xacro:steering_link prefix="left" reflect="1" /> -->
+    <!-- <xacro:steering_link prefix="right" reflect="-1" /> -->
 
-    <xacro:front_wheel_link prefix="left" reflect="1" />
-    <xacro:front_wheel_link prefix="right" reflect="-1" />
+    <!-- <xacro:front_wheel_link prefix="left" reflect="1" /> -->
+    <!-- <xacro:front_wheel_link prefix="right" reflect="-1" /> -->
 
-    <xacro:rear_wheel_link prefix="left" reflect="1" />
-    <xacro:rear_wheel_link prefix="right" reflect="-1" />
+    <!-- <xacro:rear_wheel_link prefix="left" reflect="1" /> -->
+    <!-- <xacro:rear_wheel_link prefix="right" reflect="-1" /> -->
 
     <link name="front_steer">
         <visual>
@@ -216,8 +296,8 @@
     <joint name="front_steer_joint" type="revolute">
         <parent link="base_link"/>
         <child link="front_steer"/>
-        <axis xyz="0.0 0.0 0.1"/>
-        <origin xyz="0.7 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <axis xyz="0 0 1"/>
+        <origin xyz="0.7 0 0" rpy="0 0 0"/>
         <limit lower="-0.50" upper="0.50" effort="1000" velocity="3"/>
     </joint>
 
@@ -225,9 +305,10 @@
         <parent link="base_link"/>
         <child link="rear_wheel"/>
 
-        <axis xyz="0.0 1.0 0.0"/>
-        <origin xyz="-0.70 0.0 0.0" rpy="0.0 0.0 0.0"/>
-        <limit effort="1000.0" velocity="3.0"/>
+        <axis xyz="0 1 0"/>
+        <!-- <origin xyz="-0.70 0 " rpy="0 0 0"/> -->
+        <origin xyz="-0.70 0 ${-(body_height/2) - 0.1}" rpy="0 0 0"/>
+        <!-- <limit effort="1000.0" velocity="3.0"/> -->
     </joint>
 
     <transmission name="front_steer_joint_trans">

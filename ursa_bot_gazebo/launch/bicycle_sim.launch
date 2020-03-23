@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
     <!-- Set the model -->
-    <arg name="model" value="$(find ursa_bot_description)/urdf/ursa_bot.urdf.xacro"/>
+    <arg name="model" value="$(find ursa_bot_description)/urdf/bicycle.urdf.xacro"/>
 
     <!-- Load the robot description -->
     <include file="$(find ursa_bot_gazebo)/launch/robot_sim.launch" >
