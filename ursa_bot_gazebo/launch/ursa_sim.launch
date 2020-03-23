@@ -39,7 +39,7 @@
             <param name="publish_frequency" value="50.0"/>
         </node>
 
-        <!-- Launch a rqt steering GUI for publishing to /ackermann_drive_controller/cmd_vel -->
+        <!-- Launch a rqt steering GUI for publishing to /ursa_bot/ackermann_steering_controller/cmd_vel -->
         <node pkg="rqt_robot_steering" type="rqt_robot_steering" name="rqt_robot_steering" >
             <param name="default_topic" value="/ursa_bot/ackermann_steering_controller/cmd_vel"/>
         </node>
@@ -53,6 +53,5 @@
             respawn="false" output="screen" />
 
     </group>
-
 
 </launch>

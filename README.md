@@ -28,4 +28,12 @@ $ rostopic list
 /ursa_bot/joint_states
 ```
 
-### 
+### Controller configuration
+
+From `ursa_bot.urdf.xacro` (all lengths in m):
+
+- rear wheel diameter: 0.635 (radius: 0.3175)
+- front wheel diameter: 0.605 (radius: 0.3025)
+- front steer joint: { x: 0.7 y: 0.0, z: 0.0 }
+- rear wheel joint: { x: -0.7, y:0.0, z: 0.0 }
+- => wheel separation: 1.4
