@@ -1,7 +1,7 @@
 # Steer Bot
 
-Simulate a simple Ackermann steering vehicle in Gazebo
-using `ros_control` the `steer_drive_controller` and `steer_bot_hardware_gazebo`.
+Simulate a simple Ackermann steering vehicle in Gazebo using `ros_control`
+the `ackermann_steering_controller` and `steer_bot_hardware_gazebo`.
 
 ## Installation
 
@@ -32,7 +32,7 @@ roslaunch steer_bot_gazebo steer_bot_sim.launch
 Start `rviz`:
 
 ```bash
-roslaunch steer_bot_viz view_robot.launch
+roslaunch steer_bot_viz view_steer_bot_robot.launch
 ```
 
 ## License

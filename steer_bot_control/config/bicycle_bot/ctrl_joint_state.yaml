@@ -1,5 +1,0 @@
-# Configuration for the joint state controller
-# 
-joint_state_publisher:
-    type: "joint_state_controller/JointStateController"
-    publish_rate: 50

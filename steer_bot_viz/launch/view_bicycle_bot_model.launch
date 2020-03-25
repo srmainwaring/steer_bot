@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- Display the bicycle_bot model in rviz.
+-->
+<launch>
+    <!-- Pass the bicycle_bot model to view_model.launch  -->
+    <include file="$(find steer_bot_viz)/launch/view_model.launch">
+        <arg name="model" value="$(find steer_bot_description)/urdf/bicycle_bot.urdf.xacro" />
+    </include>
+</launch>

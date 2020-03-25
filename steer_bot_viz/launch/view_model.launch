@@ -2,7 +2,7 @@
 <!-- Display the robot model in rviz.
 -->
 <launch>
-    <arg name="model" default="$(find steer_bot_description)/urdf/steer_bot/steer_bot.urdf.xacro" />
+    <arg name="model" default="$(find steer_bot_description)/urdf/steer_bot.urdf.xacro" />
     <arg name="use_gui" default="true" />
     <arg name="rvizconfig" default="$(find steer_bot_viz)/rviz/model.rviz" />
 

@@ -4,6 +4,6 @@
 <launch>
     <!-- Pass the steer_bot model to view_model.launch  -->
     <include file="$(find steer_bot_viz)/launch/view_model.launch">
-        <arg name="model" value="$(find steer_bot_description)/urdf/steer_bot/steer_bot.urdf.xacro" />
+        <arg name="model" value="$(find steer_bot_description)/urdf/steer_bot.urdf.xacro" />
     </include>
 </launch>
