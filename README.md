@@ -1,20 +1,23 @@
-# Acky Bot
+# Steer Bot
 
 Simulate a simple Ackermann steering vehicle in Gazebo
-using `ros_control` and the `ackermann_steering_controller`.
+using `ros_control` the `steer_drive_controller` and `steer_bot_hardware_gazebo`.
 
-## Setup
+## Installation
 
 ```bash
 # Create a workspace folder
-mkdir -p ~/acky_ws/src
+mkdir -p <catkin_ws>/src
 
 # Clone the repo
-cd ~/acky_ws/src
-git clone https://github.com/srmainwaring/acky_bot
+cd <catkin_ws>/src
+git clone https://github.com/srmainwaring/steer_bot
+
+# Clone the dependencies (patched version for ROS Melodic)
+git clone https://github.com/tsedl/steer_drive_ros.git
 
 # Build
-cd ..
+cd <catkin_ws>/src
 catkin build
 ```
 
@@ -23,13 +26,13 @@ catkin build
 Start the Gazebo simulation:
 
 ```bash
-roslaunch acky_bot_gazebo bicycle.launch
+roslaunch steer_bot_gazebo steer_bot_sim.launch
 ```
 
 Start `rviz`:
 
 ```bash
-roslaunch acky_bot_viz view_robot.launch
+roslaunch steer_bot_viz view_robot.launch
 ```
 
 ## License

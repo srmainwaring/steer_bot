@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>steer_bot_description</name>
+    <version>0.0.0</version>
+    <description>The steer_bot_description package</description>
+    <maintainer email="rhys.mainwaring@me.com">Rhys Mainwaring</maintainer>
+    <license>BSD-3-Clause</license>
+    <url type="website">https://github.com/srmainwaring/steer_bot</url>
+    <url type="repository">https://github.com/srmainwaring/steer_bot</url>
+    <url type="bugtracker">https://github.com/srmainwaring/steer_bot/issues</url>
+    <author email="rhys.mainwaring@me.com">Rhys Mainwaring</author>
+    <buildtool_depend>catkin</buildtool_depend>
+    <depend>urdf</depend>
+    <depend>xacro</depend>
+    <exec_depend>roslaunch</exec_depend>
+</package>
