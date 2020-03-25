@@ -7,7 +7,7 @@
     - solid cylinder
     - null (a placeholder inertial for logical link elements)
  -->
-<robot name="inertials" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="inertials" xmlns:xacro="http://wiki.ros.org/xacro">
 
     <!-- Math constants -->
     <xacro:property name="math_pi"        value="3.141592653589793" />

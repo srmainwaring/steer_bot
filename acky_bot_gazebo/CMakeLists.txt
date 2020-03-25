@@ -13,6 +13,9 @@ catkin_package(
         joint_state_controller
         robot_state_publisher
         rqt_robot_steering
+
+        steer_drive_controller
+        steer_bot_hardware_controller
 )
 
 install(DIRECTORY launch models worlds

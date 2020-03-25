@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <!--  xacro macros for robot materials.
  -->
-<robot name="materials" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="materials" xmlns:xacro="http://wiki.ros.org/xacro">
    <material name="red">
         <color rgba="0.8 0 0 1"/>
     </material>
@@ -14,6 +14,10 @@
         <color rgba="0 0 0.8 1"/>
     </material>
     
+    <material name="yellow">
+        <color rgba="0.8 0.8 0 1"/>
+    </material>
+
     <material name="orange">
         <color rgba="0.8 0.25 0 1"/>
     </material>

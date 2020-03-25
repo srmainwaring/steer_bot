@@ -1,0 +1,14 @@
+# Configuration for the steer_bot_hardware_gazebo controller
+# used by the ursa_bot model.
+steer_bot_hardware_gazebo:
+    rear_wheel  : 'rear_wheel_joint'
+    front_steer : 'front_steer_joint'
+
+    virtual_rear_wheels  : ['right_rear_axle', 'left_rear_axle']
+    virtual_front_wheels : ['right_front_axle', 'left_front_axle']
+    virtual_front_steers : ['right_steering_joint', 'left_steering_joint']
+
+    # Ackermann link mechanism
+    enable_ackermann_link: true
+    wheel_separation_w : 1.061618   # body_width + front_wheel_width + 2 * steering_width
+    wheel_separation_h : 1.71       # 2 * (body_length/2 - 0.1)

@@ -1,7 +1,7 @@
 # Acky Bot
 
 Simulate a simple Ackermann steering vehicle in Gazebo
-using `ros_control` and the `ackerman_steering_controller`.
+using `ros_control` and the `ackermann_steering_controller`.
 
 ## Setup
 

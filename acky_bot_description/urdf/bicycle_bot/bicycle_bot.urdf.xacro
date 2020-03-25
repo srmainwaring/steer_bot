@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="bicycle">
-    <!-- Xacro includes -->
-    <xacro:include filename="$(find acky_bot_description)/urdf/materials.xacro"/>
-    <xacro:include filename="$(find acky_bot_description)/urdf/inertials.xacro"/>
+<robot  name="bicycle_bot" xmlns:xacro="http://wiki.ros.org/xacro">
+    <!-- xacro includes -->
+    <xacro:include filename="$(find acky_bot_description)/urdf/common/materials.xacro"/>
+    <xacro:include filename="$(find acky_bot_description)/urdf/common/inertials.xacro"/>
 
     <xacro:property name="robot_namespace" value="/acky_bot"/>
 

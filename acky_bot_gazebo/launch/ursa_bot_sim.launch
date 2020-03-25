@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <launch>
 
-    <arg name="model" default="$(find acky_bot_description)/urdf/bicycle.urdf.xacro"/>
-    <arg name="namespace" default="/acky_bot" />
+    <arg name="model" default="$(find acky_bot_description)/urdf/ursa_bot.urdf.xacro"/>
+    <arg name="namespace" default="/ursa_bot" />
     <arg name="world_name" default="worlds/empty_world" />
     <arg name="cmd_timeout" default="0.5"/>
     <arg name="x" default="0.0"/>
@@ -14,9 +14,6 @@
 
     <group ns="$(arg namespace)">
 
-        <!-- Load gazebo_ros_control controller configurations (PIDs) -->
-        <!-- <rosparam file="$(find acky_bot_control)/config/gazebo_controller.yaml" command="load" ns="$(arg namespace)" /> -->
-
         <!-- Gazebo  -->
         <include file="$(find gazebo_ros)/launch/empty_world.launch">
             <arg name="world_name" default="$(arg world_name)"/>
@@ -26,13 +23,15 @@
         <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
 
         <!-- Load ros_control controller configuration parameters -->
-        <rosparam file="$(find acky_bot_control)/config/control_ackermann_steering.yaml" command="load" ns="$(arg namespace)" />
-        <rosparam file="$(find acky_bot_control)/config/control_joint_state.yaml" command="load" ns="$(arg namespace)" />
+        <rosparam file="$(find acky_bot_control)/config/control_steer_bot_hardware_gazebo.yaml" command="load" ns="$(arg namespace)" />
+        <rosparam file="$(find acky_bot_control)/config/control_steer_bot_pids.yaml" command="load" ns="$(arg namespace)" />
+        <!-- <rosparam file="$(find acky_bot_control)/config/control_steer_drive.yaml" command="load" ns="$(arg namespace)" /> -->
+        <!-- <rosparam file="$(find acky_bot_control)/config/control_joint_state.yaml" command="load" ns="$(arg namespace)" /> -->
 
         <!-- Spawn the controllers -->
-        <node pkg="controller_manager" type="spawner" name="controller_spawner" ns="$(arg namespace)"
-            args="joint_state_publisher ackermann_steering_controller"
-            output="screen" respawn="false" />
+        <!-- <node pkg="controller_manager" type="spawner" name="controller_spawner" ns="$(arg namespace)"
+            args="joint_state_publisher steer_drive_controller"
+            output="screen" respawn="false" /> -->
 
         <!-- Launch  the robot state publisher -->
         <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">

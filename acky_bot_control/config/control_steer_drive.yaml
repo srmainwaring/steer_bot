@@ -1,7 +1,7 @@
-# Configuration for the ackermann steering controller
-# used by the bicycle model.
-ackermann_steering_controller:
-    type: 'ackermann_steering_controller/AckermannSteeringController'
+# Configuration for the steer_drive_controller
+# used by the ursa_bot_model.
+steer_drive_controller:
+    type: 'steer_drive_controller/SteerDriveController'
 
     # Odometry related 
     publish_rate: 50                    # default: 1.0
@@ -12,8 +12,8 @@ ackermann_steering_controller:
     front_steer: 'front_steer_joint'
 
     # Geometry
-    wheel_separation_h: 1.40
-    wheel_radius: 0.3
+    wheel_separation_h: 1.71    # 2 * (body_length/2 - 0.1)
+    wheel_radius: 0.3175
 
     # Odometry calibration and tuning
     wheel_separation_h_multiplier: 1.0  # default: 1.0
