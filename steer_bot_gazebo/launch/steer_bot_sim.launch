@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-    <arg name="model" default="$(find steer_bot_description)/urdf/steer_bot/steer_bot.urdf.xacro"/>
+    <arg name="model" default="$(find steer_bot_description)/urdf/steer_bot.urdf.xacro"/>
     <arg name="namespace" default="/steer_bot" />
     <arg name="world_name" default="worlds/empty_world" />
     <arg name="cmd_timeout" default="0.5"/>
@@ -23,14 +23,14 @@
         <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
 
         <!-- Load ros_controllers configuration parameters -->
-        <rosparam file="$(find steer_bot_control)/config/steer_bot/ctrl_gains.yaml" command="load" ns="$(arg namespace)" />
-        <rosparam file="$(find steer_bot_control)/config/steer_bot/ctrl_joint_state_publisher.yaml" command="load" ns="$(arg namespace)" />
-        <rosparam file="$(find steer_bot_control)/config/steer_bot/ctrl_steer_bot_hardware_gazebo.yaml" command="load" ns="$(arg namespace)" />
-        <rosparam file="$(find steer_bot_control)/config/steer_bot/ctrl_steer_drive_controller.yaml" command="load" ns="$(arg namespace)" />
+        <rosparam file="$(find steer_bot_control)/config/ctrl_ackermann_steering_controller.yaml" command="load" ns="$(arg namespace)" />
+        <rosparam file="$(find steer_bot_control)/config/ctrl_gains.yaml" command="load" ns="$(arg namespace)" />
+        <rosparam file="$(find steer_bot_control)/config/ctrl_joint_state_publisher.yaml" command="load" ns="$(arg namespace)" />
+        <rosparam file="$(find steer_bot_control)/config/ctrl_steer_bot_hardware_gazebo.yaml" command="load" ns="$(arg namespace)" />
 
         <!-- Spawn the controllers -->
         <node pkg="controller_manager" type="spawner" name="controller_spawner" ns="$(arg namespace)"
-            args="joint_state_publisher steer_drive_controller"
+            args="joint_state_publisher ackermann_steering_controller"
             output="screen" respawn="false" />
 
         <!-- Launch  the robot state publisher -->
@@ -40,7 +40,7 @@
 
         <!-- Launch a rqt steering GUI for publishing to /steer_bot/steer_drive_controller/cmd_vel -->
         <node pkg="rqt_robot_steering" type="rqt_robot_steering" name="rqt_robot_steering" >
-            <param name="default_topic" value="$(arg namespace)/steer_drive_controller/cmd_vel"/>
+            <param name="default_topic" value="$(arg namespace)/ackermann_steering_controller/cmd_vel"/>
         </node>
 
         <!-- Spawn robot in Gazebo -->

@@ -9,8 +9,8 @@
 -->
 <robot name="wheel" xmlns:xacro="http://wiki.ros.org/xacro">
   <!-- Include xacro for materials and inertials -->
-  <xacro:include filename="$(find steer_bot_description)/urdf/common/materials.xacro"/>
-  <xacro:include filename="$(find steer_bot_description)/urdf/common/inertials.xacro"/>
+  <xacro:include filename="$(find steer_bot_description)/urdf/materials.xacro"/>
+  <xacro:include filename="$(find steer_bot_description)/urdf/inertials.xacro"/>
 
   <!-- Properties -->
   <xacro:property name="steer_effort" value="10.0"/>
@@ -226,6 +226,47 @@
         <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       </joint>
     </transmission>
+
+    <gazebo reference="${name}_wheel_link">
+      <material>Gazebo/Yellow</material>
+    </gazebo>
+  </xacro:macro>
+
+  <!-- Bicycle model front wheel link (passive - no transmission) -->
+  <xacro:macro name="front_wheel"
+    params="
+      name
+      parent
+      wheel_radius
+      wheel_thickness
+      wheel_mass
+      *origin">
+    <link name="${name}_wheel_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+        </geometry>
+        <material name="yellow" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+        </geometry>
+      </collision>
+      <xacro:solid_cylinder_inertial 
+          rpy="0 0 0" xyz="0 0 0"
+          mass="${wheel_mass}"
+          radius="${wheel_radius}" length="${wheel_thickness}" />
+    </link>
+
+    <joint name="${name}_wheel_joint" type="continuous">
+      <parent link="${parent}_link"/>
+      <child link="${name}_wheel_link"/>
+      <xacro:insert_block name="origin"/>
+      <axis xyz="0 0 1"/>
+    </joint>
 
     <gazebo reference="${name}_wheel_link">
       <material>Gazebo/Yellow</material>

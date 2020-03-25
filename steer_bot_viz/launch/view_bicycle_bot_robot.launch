@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- Robot visualisation
+
+    Open a preconfigured rviz session.
+
+    Args:
+        rvizconfig  the rviz configuration file
+-->
+<launch>
+    <arg name="rvizconfig" default="$(find steer_bot_viz)/rviz/bicycle_bot_robot.rviz" />
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" output="screen"/>
+</launch>
