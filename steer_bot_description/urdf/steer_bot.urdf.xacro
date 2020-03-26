@@ -20,6 +20,19 @@
   <!-- Include xacro for inertials, materials and wheels -->
   <xacro:include filename="$(find steer_bot_description)/urdf/wheel.xacro"/>
 
+  <xacro:property name="robot_namespace" value="/steer_bot"/>
+
+  <!-- Gazebo plugins -->
+  <gazebo>
+    <!-- Load ros_control plugin using the steer_bot_hardware_gazebo
+    implementation of the hardware_interface::RobotHW -->
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>${robot_namespace}</robotNamespace>
+      <robotSimType>steer_bot_hardware_gazebo/SteerBotHardwareGazebo</robotSimType>
+      <legacyModeNS>false</legacyModeNS>
+    </plugin>
+  </gazebo>
+
   <!-- Math constants -->
   <xacro:property name="deg_to_rad" value="0.01745329251994329577"/>
 
@@ -142,18 +155,6 @@
   <!-- Colour -->
   <gazebo reference="base_link">
     <material>Gazebo/Green</material>
-  </gazebo>
-
- <!--
-   Gazebo plugin for ROS Control using the steer_bot_hardware_gazebo
-   implementation of the hardware_interface::RobotHW
-  -->
-  <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/</robotNamespace>
-      <robotSimType>steer_bot_hardware_gazebo/SteerBotHardwareGazebo</robotSimType>
-      <legacyModeNS>false</legacyModeNS>
-    </plugin>
   </gazebo>
 
 </robot>

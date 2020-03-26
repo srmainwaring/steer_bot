@@ -20,6 +20,28 @@
   <!-- Include xacro for inertials, materials and wheels -->
   <xacro:include filename="$(find steer_bot_description)/urdf/wheel.xacro"/>
 
+  <xacro:property name="robot_namespace" value="/bicycle_bot"/>
+
+  <!-- Gazebo plugins -->
+  <gazebo>
+    <!-- Load ros_control plugin -->
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>${robot_namespace}</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>false</legacyModeNS>
+    </plugin> 
+
+    <!-- Load gazebo_ros plugin. Publish passive (non-actuated) joints from Gazebo -->
+    <plugin name="gazebo_ros_joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+        <robotNamespace>${robot_namespace}</robotNamespace>
+        <jointName>
+            front_wheel_joint
+        </jointName>
+        <updateRate>50</updateRate>
+        <alwaysOn>true</alwaysOn>
+    </plugin>
+  </gazebo>
+
   <!-- Math constants -->
   <xacro:property name="deg_to_rad" value="0.01745329251994329577"/>
 
@@ -78,15 +100,6 @@
     <origin xyz="${base_length/2-axle_offset} 0 0" rpy="${-90 * deg_to_rad} 0 0"/>
   </xacro:front_steer>
 
-  <xacro:rear_wheel
-    name="rear"
-    parent="base"
-    wheel_radius="${wheel_radius}"
-    wheel_thickness="${wheel_thickness}"
-    wheel_mass="${wheel_mass}">
-    <origin xyz="${-base_length/2+axle_offset} 0 0" rpy="${-90 * deg_to_rad} 0 0"/>
-  </xacro:rear_wheel>
-
   <xacro:front_wheel
     name="front"
     parent="front_steer"
@@ -96,28 +109,18 @@
     <origin xyz="0 0 ${-wheel_radius-steer_offset}" rpy="${-90 * deg_to_rad} 0 0"/>
   </xacro:front_wheel>
 
+  <xacro:rear_wheel
+    name="rear"
+    parent="base"
+    wheel_radius="${wheel_radius}"
+    wheel_thickness="${wheel_thickness}"
+    wheel_mass="${wheel_mass}">
+    <origin xyz="${-base_length/2+axle_offset} 0 0" rpy="${-90 * deg_to_rad} 0 0"/>
+  </xacro:rear_wheel>
+
   <!-- Colour -->
   <gazebo reference="base_link">
     <material>Gazebo/Green</material>
   </gazebo>
-
-  <gazebo>
-    <!-- Gazebo plugin for ROS Control -->
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/</robotNamespace>
-      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-      <legacyModeNS>false</legacyModeNS>
-    </plugin> 
-  </gazebo>
-
-  <!-- Load gazebo_ros plugin. Publish passive (non-actuated) joints from Gazebo -->
-  <plugin name="gazebo_ros_joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
-      <robotNamespace>/</robotNamespace>
-      <jointName>
-          front_wheel_joint
-      </jointName>
-      <updateRate>50</updateRate>
-      <alwaysOn>true</alwaysOn>
-  </plugin>
 
 </robot>
