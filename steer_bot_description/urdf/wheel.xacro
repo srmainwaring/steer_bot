@@ -271,6 +271,10 @@
     <gazebo reference="${name}_wheel_link">
       <material>Gazebo/Yellow</material>
     </gazebo>
+
+    <gazebo reference="${name}_wheel_joint">
+      <provideFeedback>true</provideFeedback>
+    </gazebo>
   </xacro:macro>
 
   <!-- Car steering model rear wheel links (left/right) -->
