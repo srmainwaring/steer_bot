@@ -97,7 +97,6 @@
     base_width="${base_width}"
     axle_offset="${axle_offset}"
     steer_height="${wheel_radius+steer_offset}">
-    <origin xyz="${base_length/2-axle_offset} 0 0" rpy="${-90 * deg_to_rad} 0 0"/>
   </xacro:front_steer>
 
   <xacro:front_wheel

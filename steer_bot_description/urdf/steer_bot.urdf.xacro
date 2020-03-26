@@ -88,7 +88,6 @@
     base_width="${base_width}"
     axle_offset="${axle_offset}"
     steer_height="${wheel_radius+steer_offset}">
-    <origin xyz="${base_length/2-axle_offset} 0 0" rpy="${-90 * deg_to_rad} 0 0"/>
   </xacro:front_steer>
 
   <xacro:rear_wheel
@@ -104,7 +103,7 @@
   <xacro:front_wheel_lr 
     name="front_right"
     parent="base"
-    reflect="1"
+    reflect="-1"
     wheel_radius="${wheel_radius}"
     wheel_thickness="${wheel_thickness}" 
     wheel_mass="${wheel_mass}" 
@@ -115,12 +114,11 @@
     base_width="${base_width}"
     axle_offset="${axle_offset}"
     steer_height="${wheel_radius+steer_offset}">
-    <origin xyz="${base_length/2-axle_offset} ${base_width/2+axle_offset} 0" rpy="${-90 * deg_to_rad} 0 0"/>
   </xacro:front_wheel_lr>
   <xacro:front_wheel_lr
     name="front_left"
     parent="base"
-    reflect="-1"
+    reflect="1"
     wheel_radius="${wheel_radius}"
     wheel_thickness="${wheel_thickness}"
     wheel_mass="${wheel_mass}" 
@@ -131,7 +129,6 @@
     base_width="${base_width}"
     axle_offset="${axle_offset}"
     steer_height="${wheel_radius+steer_offset}">
-    <origin xyz="${base_length/2-axle_offset} ${-base_width/2-axle_offset} 0" rpy="${-90 * deg_to_rad} 0 0"/>
   </xacro:front_wheel_lr>
 
   <!-- Rear wheels -->
@@ -141,7 +138,7 @@
     wheel_radius="${wheel_radius}"
     wheel_thickness="${wheel_thickness}"
     wheel_mass="${wheel_mass}">
-    <origin xyz="${-base_length/2+axle_offset} ${base_width/2+axle_offset} 0" rpy="${-90 * deg_to_rad} 0 0"/>
+    <origin xyz="${-base_length/2+axle_offset} ${-base_width/2-axle_offset} 0" rpy="${-90 * deg_to_rad} 0 0"/>
   </xacro:rear_wheel_lr>
   <xacro:rear_wheel_lr
     name="rear_left"
@@ -149,7 +146,7 @@
     wheel_radius="${wheel_radius}"
     wheel_thickness="${wheel_thickness}"
     wheel_mass="${wheel_mass}">
-    <origin xyz="${-base_length/2+axle_offset} ${-base_width/2-axle_offset} 0" rpy="${-90 * deg_to_rad} 0 0"/>
+    <origin xyz="${-base_length/2+axle_offset} ${+base_width/2+axle_offset} 0" rpy="${-90 * deg_to_rad} 0 0"/>
   </xacro:rear_wheel_lr>
 
   <!-- Colour -->

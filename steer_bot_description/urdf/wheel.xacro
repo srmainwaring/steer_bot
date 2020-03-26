@@ -27,8 +27,7 @@
       base_length
       base_width
       axle_offset
-      steer_height
-      *origin">
+      steer_height">
     <link name="${name}_steer_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -90,8 +89,7 @@
       base_length
       base_width
       axle_offset
-      steer_height
-      *origin">
+      steer_height">
     <link name="${name}_steer_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
