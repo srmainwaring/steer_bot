@@ -35,6 +35,15 @@ Start `rviz`:
 roslaunch steer_bot_viz view_steer_bot_robot.launch
 ```
 
+If all is working well you should see the robot in Gazebo and be able to
+command it using `rqt_robot_steering`:
+
+![steer_gazebo rviz](https://raw.githubusercontent.com/wiki/srmainwaring/steer_bot/images/steer_bot_gazebo.png)
+
+The robot model and odometry can be monitored in `rviz`: 
+
+![steer_bot rviz](https://raw.githubusercontent.com/wiki/srmainwaring/steer_bot/images/steer_bot_rviz.png)
+
 ## License
 
 This software is licensed under the BSD-3-Clause license found in the
