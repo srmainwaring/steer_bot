@@ -13,8 +13,16 @@ mkdir -p <catkin_ws>/src
 cd <catkin_ws>/src
 git clone https://github.com/srmainwaring/steer_bot
 
-# Clone the dependencies (patched version for ROS Melodic)
+# Checkout a version of `steer_drive_ros` patched for ROS Melodic
 git clone https://github.com/tsedl/steer_drive_ros.git
+cd steer_drive_ros
+git checkout melodic-devel
+
+# Check dependencies
+rosdep check --from-paths src --ignore-src --rosdistro melodic
+
+# Install dependencies
+rosdep install --from-paths src --ignore-src --rosdistro melodic -y
 
 # Build
 cd <catkin_ws>/src
@@ -43,6 +51,7 @@ command it using `rqt_robot_steering`:
 The robot model and odometry can be monitored in `rviz`: 
 
 ![steer_bot rviz](https://raw.githubusercontent.com/wiki/srmainwaring/steer_bot/images/steer_bot_rviz.png)
+
 
 ## License
 

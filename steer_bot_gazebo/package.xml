@@ -10,6 +10,7 @@
     <url type="bugtracker">https://github.com/srmainwaring/steer_bot/issues</url>
     <author email="rhys.mainwaring@me.com">Rhys Mainwaring</author>
     <buildtool_depend>catkin</buildtool_depend>
+    <exec_depend>ackermann_steering_controller</exec_depend>
     <exec_depend>controller_manager</exec_depend>
     <exec_depend>gazebo_ros</exec_depend>
     <exec_depend>gazebo_ros_control</exec_depend>
