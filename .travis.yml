@@ -20,14 +20,15 @@ git:
 env:
   global: # global settings for all jobs
     - CCACHE_DIR=$HOME/.ccache # enables C/C++ caching in industrial_ci
-    - DOCKER_BUILD_OPTS='apt update && apt install python3-vcstool'
-    - BEFORE_INSTALL_TARGET_DEPENDENCIES='rosenv && vcs import src < ./vcstool.repos'
-    - ROSDEP_SKIP_KEYS='steer_drive_ros'
+#     - DOCKER_BUILD_OPTS='apt update && apt install python3-vcstool'
+#     - BEFORE_INSTALL_TARGET_DEPENDENCIES='rosenv && vcs import src < ./vcstool.repos'
+#     - ROSDEP_SKIP_KEYS='steer_drive_ros'
   matrix: # each line is a job
     - ROS_DISTRO="melodic"
 
 # clone and run industrial_ci
 install:
   - git clone --quiet --depth 1 https://github.com/ros-industrial/industrial_ci.git .industrial_ci -b master
+
 script:
   - .industrial_ci/travis.sh
