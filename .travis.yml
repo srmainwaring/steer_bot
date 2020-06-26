@@ -20,6 +20,7 @@ git:
 env:
   global: # global settings for all jobs
     - CCACHE_DIR=$HOME/.ccache # enables C/C++ caching in industrial_ci
+    - UPSTREAM_WORKSPACE='github:tsedl/steer_drive_ros#melodic-devel'
   matrix: # each line is a job
 #     - ROS_DISTRO="lunar" ROS_REPO=main # overrides the default
 #     - ROS_DISTRO="kinetic"
