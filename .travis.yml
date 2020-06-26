@@ -20,7 +20,7 @@ git:
 env:
   global: # global settings for all jobs
     - CCACHE_DIR=$HOME/.ccache # enables C/C++ caching in industrial_ci
-    - UPSTREAM_WORKSPACE='vcs import src < ./vcstool.repos'
+    - BEFORE_INSTALL_TARGET_DEPENDENCIES='vcs import src < ./vcstool.repos'
   matrix: # each line is a job
     - ROS_DISTRO="melodic"
 
