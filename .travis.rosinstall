@@ -1,0 +1,4 @@
+- git:
+    uri: https://github.com/tsedl/steer_drive_ros.git
+    local-name: steer_drive_ros
+    version: melodic-devel
