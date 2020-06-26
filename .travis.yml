@@ -20,9 +20,6 @@ git:
 env:
   global: # global settings for all jobs
     - CCACHE_DIR=$HOME/.ccache # enables C/C++ caching in industrial_ci
-#     - DOCKER_BUILD_OPTS='apt update && apt install python3-vcstool'
-#     - BEFORE_INSTALL_TARGET_DEPENDENCIES='rosenv && vcs import src < ./vcstool.repos'
-#     - ROSDEP_SKIP_KEYS='steer_drive_ros'
   matrix: # each line is a job
     - ROS_DISTRO="melodic"
       UPSTREAM_WORKSPACE=file

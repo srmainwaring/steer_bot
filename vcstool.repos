@@ -1,5 +1,0 @@
-repositories:
-  steer_drive_ros:
-    type: git
-    url: https://github.com/tsedl/steer_drive_ros.git
-    version: melodic-devel

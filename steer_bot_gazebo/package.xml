@@ -23,7 +23,4 @@
     <exec_depend>steer_bot_hardware_gazebo</exec_depend>
     <exec_depend>steer_drive_controller</exec_depend>
     <exec_depend>xacro</exec_depend>
-    <export>
-        <gazebo_ros gazebo_model_path="${prefix}/models"/>
-    </export>
 </package>
