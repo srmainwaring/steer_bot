@@ -53,6 +53,22 @@ The robot model and odometry can be monitored in `rviz`:
 ![steer_bot rviz](https://raw.githubusercontent.com/wiki/srmainwaring/steer_bot/images/steer_bot_rviz.png)
 
 
+## Build Status
+
+### Develop Job Status
+
+|    | Melodic |
+|--- |--- |
+| steer_bot | [![Build Status](https://travis-ci.org/srmainwaring/steer_bot.svg?branch=develop)](https://travis-ci.org/srmainwaring/steer_bot) |
+
+
+### Release Job Status
+
+|    | Melodic |
+|--- |--- |
+| steer_bot | [![Build Status](https://travis-ci.org/srmainwaring/steer_bot.svg?branch=master)](https://travis-ci.org/srmainwaring/steer_bot) |
+
+
 ## License
 
 This software is licensed under the BSD-3-Clause license found in the

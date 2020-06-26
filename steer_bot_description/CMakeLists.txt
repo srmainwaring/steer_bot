@@ -7,15 +7,7 @@ find_package(catkin REQUIRED COMPONENTS
     xacro
 )
 
-catkin_package(
-    CATKIN_DEPENDS 
-    urdf
-    xacro
-)
-
-include_directories(
-    ${catkin_INCLUDE_DIRS}
-)
+catkin_package()
 
 install(DIRECTORY launch urdf
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
