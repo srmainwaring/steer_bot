@@ -25,6 +25,7 @@ env:
 #     - ROSDEP_SKIP_KEYS='steer_drive_ros'
   matrix: # each line is a job
     - ROS_DISTRO="melodic"
+    - UPSTREAM_WORKSPACE=file
 
 # clone and run industrial_ci
 install:
